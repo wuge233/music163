@@ -31,7 +31,13 @@ module.exports = {
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+        '/weapi': {//需要匹配的路径
+                    target: 'http://music.163.com', //需要代理的目标服务器
+            　　　　 changeOrigin: true, //开启代理
+             　　　　pathRewrite: { '^/weapi': '/weapi' }  //这里重写路径/run就代理到对应地址
+            　　}
+    },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)
