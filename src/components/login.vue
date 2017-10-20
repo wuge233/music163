@@ -19,10 +19,12 @@
 		},
 		methods:{
 			reg:function(){
+				var that = this;
 				axios.post("/api/login","username="+this.username+"&password="+this.password)
 				.then(function(res){
 					if(res.data){
-						alert("登录成功");
+						console.log("登录成功");
+						that.$router.push('/music');
 					}else{
 						alert("登录失败");
 					}
