@@ -6,8 +6,8 @@
         <span>网易云音乐</span>
       </div>
       <div class="login">
-        <p>登录/注册</p>
-      </div>
+        <router-link to="/login">登录/注册</router-link>
+    </div>
     </header>
     <div class="tabarea">
       <div class="items">
@@ -40,6 +40,7 @@ header{
   width:100%;
   background:#d43c33;
   position:fixed;
+  z-index:100;
 }
 .logo{
   float:left;
@@ -75,6 +76,7 @@ header{
   display:flex;
   justify-content:center;
   border-bottom:2px solid #ccc;
+  z-index:100;
 }
 .tabarea .items{
   flex:1;

@@ -1,16 +1,22 @@
 <template>
     <div>
-		<tou></tou>
-		<form>
-			<div>
-			    <i></i>
-				<input v-model="message" class="search" type="text" placeholder="搜索歌曲、歌手、专辑">
-				<p v-if="message != null && message != ''">搜索“{{message}}”</p>
+    	<div class="all1">
+			<form>
+				<div>
+				    <i></i>
+					<input v-model="message" class="search" type="text" placeholder="搜索歌曲、歌手、专辑">
+					<p v-if="message != null && message != ''">搜索“{{message}}”</p>
+				</div>
+			</form>
+			<div v-if="message == null || message == ''" class="tuijian">
+				<p>热门搜索</p>
+				
+				<ul class="sousuo">
+					<li v-for="item in list">
+						<a>{{item}}</a>
+					</li>
+				</ul>
 			</div>
-		</form>
-		<div class="tuijian">
-			<p>热门搜索</p>
-			<button @click="getData()">测试</button>
 		</div>
 	</div>
 </template>
@@ -21,32 +27,42 @@
 		name: 'search',
 		data: function(){
 			return {
-				message:null
+				message:null,
+				list:[]
 			}
 		},
 		methods: {
 
-			getData: function(){
-				axios.post('/weapi/search/hot?csrf_token=ae10a5baeb093ec7cbbb5902b6d0694a', {
-			    firstName: '',
-			    lastName: ''
+			
+		},
+		mounted: function(){
+			
+				var that = this;
+				axios.get('/static/resou.json', {
 			  })
 			  .then(function (response) {
-			    console.log(response);
+			    console.log(response.data);
+			    that.list = response.data.split(",");
+
+			    console.log(that.list);
 			  })
 			  .catch(function (error) {
 			    console.log(error);
 			  });
-			} 
+			
 		}
 	}
 </script>
 
 <style>
-form{
-	padding:15px 10px;
+.all1{
 	position:relative;
 	top:110px;
+	
+}
+form{
+	padding:15px 10px;
+	
 }
 form div{
 	height:30px;
@@ -80,12 +96,33 @@ form div i{
 }
 .tuijian{
 	position:relative;
-	top:150px;
 	color:#666;
 	font-size:14px;
 }
 .tuijian p{
 	padding-left:10px;
+}
+.sousuo{
+	margin:10px 0 7px;
+	list-style:none;
+	padding:15px 10px 0;
+}
+.sousuo li{
+	display: inline-block;
+    height: 32px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    padding: 0 14px;
+    font-size: 14px;
+    line-height: 32px;
+    color: #333;
+    position:relative;
+    border:1px solid #ccc;
+    border-radius:16px;
+}
+.sousuo li a{
+	text-decoration:none;
+	color:#333；
 }
 
 </style>
